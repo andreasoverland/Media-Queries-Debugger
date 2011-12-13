@@ -1,17 +1,19 @@
 @import "imported-css-with-mediaqueries.css";
 
+/* This CSS is used to test and demonstrate recursive scanning */
+
 body {
-    background: #0f0;
+    /* background: #0f0; */
 }
 
 @media screen and (max-width:800px) {
     body {
-        background:hotpink;
+        /* background:hotpink; */
     }
 }
 
 @media screen and (max-width:1300px) {
     body {
-        background:hotpink;
+        /* background:hotpink; */
     }
 }

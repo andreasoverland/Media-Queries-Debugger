@@ -1,0 +1,6 @@
+
+Media Queries Debugger
+
+The script loops through all external and imported CSS-files and looks for
+media-queries and tests them to see if they match the current media state.
+

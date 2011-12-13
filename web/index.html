@@ -2,8 +2,9 @@
 <html>
 	<head id="theHead">
 		<meta charset="utf-8"/>
-		<title>Media Queries Debugging Tool</title>
+		<title>Media Queries Debugger</title>
 
+		<link rel="stylesheet" href="mqdt.css"/>
         <link rel="stylesheet" href="css-with-mediaqueries.css"/>
 		<link rel="stylesheet" media="all and (min-width:1280px)"/>
 		<link rel="stylesheet" media="all and (min-width:1024px)"/>
@@ -11,89 +12,25 @@
 		<link rel="stylesheet" media="all and (max-width:800px)"/>
 		<link rel="stylesheet" media="all and (min-width:480px)"/>
 		<link rel="stylesheet" href="mediaqueries-debuggingtool.css"/>
-
-		<style type="text/css">
-
-			* {
-				font-family: "Helvetica Neue", helvetica, sans-serif;
-			}
-
-			body {
-				text-align: center;
-				font-size: 13px;
-				background: #ddd;
-			}
-
-			.container {
-				margin: 10px;
-				max-width: 600px;
-				width:90%;
-				text-align: left;
-				background: #fff;
-				padding: 20px;
-				border-radius: 10px;
-			}
-
-			SPAN.false {
-				background: #800;
-			}
-
-			SPAN.label {
-				display: inline-block;
-				width: 70px;
-				padding: 0px 3px;
-				border-radius: 3px;
-				text-align: center;
-				color: #fff;
-				font-size: 12px;
-			}
-
-			H1, H2 {
-				font-weight: normal;
-				text-align: center;
-			}
-
-
-			SPAN.true {
-				background: #080;
-			}
-
-			#addAnother {
-				width: 70%;
-			}
-
-			#addAnotherButton {
-				width: 25%;
-				float: right;
-			}
-
-			A, A:LINK {
-				text-decoration: none;
-			}
-
-			.help-inline {
-				display:inline;
-				color:#888;
-				font-size:10px;
-			}
-
-            .update {
-                padding:10px;
-                background:#fe8;
-            }
-
-		</style>
 	</head>
 	<body>
 		<div class="container">
-			<h1>Media Queries Debugging</h1>
 
-			<h2>Resize the window to make things happen</h2>
+			<a href="https://github.com/andreasoverland/Media-Queries-Debugger"><img border="0"  id="octocat" src="http://octodex.github.com/images/original.jpg" width="100" height="100" title="Media Queries Debugger on GitHub"></a>
+
+			<h1>Media Queries Debugger</h1>
+
+			<h2>Resize the window and watch the red and green lights below</h2>
+			<br style="clear:both"/>
+            <p class="update">
+            <strong>Updates 2011.12.13:</strong>
+				Now available on github : <a href="https://github.com/andreasoverland/Media-Queries-Debugger" target="_blank">https://github.com/andreasoverland/Media-Queries-Debugger</a>
+            </p>
             <p class="update">
             <strong>Updates 2011.12.12:</strong>
 
-                The Debugging-tool now supports @mediaqueries inside CSS-files and will scan @imported CSS-files within CSS-files, recursively.
-                Also, a link to the file containing the @mediaquery has been embedded. Try it on <a href="http://www.bostonglobe.com/" target="_blank">The Boston Globe</a> (grab the bookmarklet first)
+                The Debugging-tool now supports @media-queries inside CSS-files and will scan @imported CSS-files recursively.
+                Also, a link to the file containing the @media-query has been embedded. Try it on <a href="http://www.bostonglobe.com/" target="_blank">The Boston Globe</a> (grab the bookmarklet first)
             </p>
 
 			<div id="reportContainer"><!-- --></div>
@@ -101,8 +38,7 @@
 			<div>
 				<p>
 					<strong>Copy with pride!</strong><br/>
-					The script loops through all CSS-files containing a "media"-attribute, then tests the media
-					query and reports true or false for a match.
+					The script loops through all external and imported CSS-files and looks for media-queries and tests them to see if they match the current media state.
 				</p>
 
 				<p>
@@ -142,7 +78,7 @@
 
 
                     <h3>Awards:</h3>
-                    <strong>Best Co-Programmers</strong>
+                    <strong>Best Co-Programmer(s)</strong>
                     <ul>
                         <li><a href="http://twitter.com/tvillingolsen" target="_blank">@tvillingolsen</a> for her undivided attention to detail</li>
                     </ul>

@@ -1,9 +1,11 @@
+/* This CSS is used to test and demonstrate recursive scanning */
+
 body {
     background-position:left bottom;
 }
 
 @media screen and (min-width:834px){
     body {
-        background:#BADA55;
+        /* background:#BADA55; */
     }
 }
