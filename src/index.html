@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head id="theHead">
+		<meta charset="utf-8"/>
+		<title>Media Queries Debugging Tool</title>
+
+        <link rel="stylesheet" href="css-with-mediaqueries.css"/>
+		<link rel="stylesheet" media="all and (min-width:1280px)"/>
+		<link rel="stylesheet" media="all and (min-width:1024px)"/>
+		<link rel="stylesheet" media="all and (max-width:980px) and (min-width:700px)"/>
+		<link rel="stylesheet" media="all and (max-width:800px)"/>
+		<link rel="stylesheet" media="all and (min-width:480px)"/>
+		<link rel="stylesheet" href="mediaqueries-debuggingtool.css"/>
+
+		<style type="text/css">
+
+			* {
+				font-family: "Helvetica Neue", helvetica, sans-serif;
+			}
+
+			body {
+				text-align: center;
+				font-size: 13px;
+				background: #ddd;
+			}
+
+			.container {
+				margin: 10px;
+				max-width: 600px;
+				width:90%;
+				text-align: left;
+				background: #fff;
+				padding: 20px;
+				border-radius: 10px;
+			}
+
+			SPAN.false {
+				background: #800;
+			}
+
+			SPAN.label {
+				display: inline-block;
+				width: 70px;
+				padding: 0px 3px;
+				border-radius: 3px;
+				text-align: center;
+				color: #fff;
+				font-size: 12px;
+			}
+
+			H1, H2 {
+				font-weight: normal;
+				text-align: center;
+			}
+
+
+			SPAN.true {
+				background: #080;
+			}
+
+			#addAnother {
+				width: 70%;
+			}
+
+			#addAnotherButton {
+				width: 25%;
+				float: right;
+			}
+
+			A, A:LINK {
+				text-decoration: none;
+			}
+
+			.help-inline {
+				display:inline;
+				color:#888;
+				font-size:10px;
+			}
+
+            .update {
+                padding:10px;
+                background:#fe8;
+            }
+
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Media Queries Debugging</h1>
+
+			<h2>Resize the window to make things happen</h2>
+            <p class="update">
+            <strong>Updates 2011.12.12:</strong>
+
+                The Debugging-tool now supports @mediaqueries inside CSS-files and will scan @imported CSS-files within CSS-files, recursively.
+                Also, a link to the file containing the @mediaquery has been embedded. Try it on <a href="http://www.bostonglobe.com/" target="_blank">The Boston Globe</a> (grab the bookmarklet first)
+            </p>
+
+			<div id="reportContainer"><!-- --></div>
+
+			<div>
+				<p>
+					<strong>Copy with pride!</strong><br/>
+					The script loops through all CSS-files containing a "media"-attribute, then tests the media
+					query and reports true or false for a match.
+				</p>
+
+				<p>
+					Feel free to copy, alter, enhance and improve! I'll gladly link to any improvements and alternatives
+					to this tool.
+					<br/>
+					<br/>
+					<strong>How to use</strong><br/>
+					Either drag this <a href="javascript:var cssLink = document.createElement('link'); cssLink.rel = 'stylesheet'; cssLink.href='http://www.andreasoverland.no/mediaqueries/mediaqueries-debuggingtool.css'; var scriptBlock = document.createElement('script'); scriptBlock.src='http://www.andreasoverland.no/mediaqueries/mediaqueries-debuggingtool.js';scriptBlock.type='text/javascript'; document.getElementsByTagName('head')[0].appendChild( cssLink );document.getElementsByTagName('head')[0].appendChild( scriptBlock ); ">Debug MediaQueries</a>
+					bookmarklet onto your toolbar an click on it when you are on the page you want to MQ-debug.
+					<br/>
+					Or include this script in your test or development system:<br/>
+					<textarea style="width:100%;text-align:left;font-family: courier;font-size: 10px;" rows="5">
+<script src="http://www.andreasoverland.no/mediaqueries/mediaqueries-debuggingtool.js">//</script>
+<link href="http://www.andreasoverland.no/mediaqueries/mediaqueries-debuggingtool.css" rel="stylesheet"/>
+					</textarea>
+					<span class="help-inline">The CSS is optional.</span>
+					<br/>
+					<br/>
+					Add another media query to this page:
+					<input type="text" id="addAnother" placeholder="handheld and (max-width:360)"/>
+					<input type="button" id="addAnotherButton" value="addit" onclick="addit();"/>
+
+
+					<br/>
+					<br/>
+					Let me know if you find bugs or if you like it.<br/>
+					<em><a href="http://twitter.com/andreasoverland">Andreas Øverland (on twitter)</a></em>
+
+
+				</p>
+
+				<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal"
+				   data-via="andreasoverland">Tweet</a>
+				<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
+
+
+                    <h3>Awards:</h3>
+                    <strong>Best Co-Programmers</strong>
+                    <ul>
+                        <li><a href="http://twitter.com/tvillingolsen" target="_blank">@tvillingolsen</a> for her undivided attention to detail</li>
+                    </ul>
+					<strong>Best Feature Requesters</strong>
+					<ul>
+						<li><a href="http://twitter.com/oyvindmal" target="_blank">@oyvindmal</a> for his "current viewport size"-request</li>
+						<li><a href="http://twitter.com/oyvindmal" target="_blank">@oyvindmal</a> for his "bookmarklet"-request</li>
+					</ul>
+
+
+
+                    <h3>Links & resources</h3>
+
+                <ul>
+                    <li><a href="http://mediaqueri.es" target="_blank">http://mediaqueri.es</a></li>
+                    <li><a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank">http://www.w3.org/TR/css3-mediaqueries/</a></li>
+                </ul>
+
+
+			</div>
+		</div>
+
+
+        <div id="debug"/>
+
+		<script type="text/javascript">
+
+
+			function addit() {
+				var newMedia = document.getElementById( 'addAnother' ).value;
+				if ( newMedia.trim() !== '' ) {
+					var theHead = document.getElementById( 'theHead' );
+					var newLink = document.createElement( 'link' );
+					newLink.media = newMedia;
+					newLink.rel = 'stylesheet';
+					theHead.appendChild( newLink );
+					if ( document.getElementsByTagName( 'link' ).length > 10 ) {
+						var toBeDeleted = document.getElementsByTagName( 'link' )[0];
+						theHead.removeChild( toBeDeleted );
+					}
+					checkMediaQueries();
+					document.getElementById( 'addAnother' ).value = '';
+				}
+			}
+            
+            
+
+		</script>
+
+		<script type="text/javascript" src="mediaqueries-debuggingtool.js">//</script>
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-348961-9");
+pageTracker._trackPageview();
+</script>
+
+	</body>
+</html>
